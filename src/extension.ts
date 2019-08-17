@@ -1,36 +1,15 @@
 import * as vscode from "vscode";
 import * as execa from "execa";
 import { CopyTunerProvider } from "./CopyTunerProvider";
-
-const getCopytunerApiKey = async () => {
-  const configPaths = await vscode.workspace.findFiles(
-    "config/initializers/copy_tuner.rb"
-  );
-  if (configPaths.length === 0) {
-    return null;
-  }
-  const workspaceFolder = vscode.workspace.getWorkspaceFolder(
-    configPaths[0]
-  ) as vscode.WorkspaceFolder;
-
-  const { stdout } = await execa(
-    "bundle",
-    ["exec", "rails", "runner", "puts CopyTunerClient.configuration.api_key"],
-    {
-      cwd: workspaceFolder.uri.path
-    }
-  );
-
-  return stdout.match(/^[a-f0-9]{48}$/) ? stdout : null;
-};
+import { getApiKey, download } from "./util";
 
 export async function activate(context: vscode.ExtensionContext) {
-  const apiKey = await getCopytunerApiKey();
+  const apiKey = await getApiKey();
   if (!apiKey) {
     return;
   }
 
-  const provider = vscode.languages.registerCodeActionsProvider(
+  const codeActionProvider = vscode.languages.registerCodeActionsProvider(
     ["ruby", "erb", "haml", "slim"],
     new CopyTunerProvider(apiKey),
     {
@@ -38,7 +17,20 @@ export async function activate(context: vscode.ExtensionContext) {
     }
   );
 
-  context.subscriptions.push(provider);
+  const command = vscode.commands.registerCommand(
+    "copyTuner.download",
+    download
+  );
+
+  setImmediate(() => {
+    const progressOptions = {
+      location: vscode.ProgressLocation.Window,
+      title: "Downloading copy_tuner.yml"
+    };
+    vscode.window.withProgress(progressOptions, () => download(true));
+  });
+
+  context.subscriptions.push(codeActionProvider, command);
 }
 
 export function deactivate() {}

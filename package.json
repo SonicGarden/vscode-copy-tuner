@@ -2,7 +2,7 @@
   "name": "copy-tuner",
   "displayName": "CopyTuner",
   "description": "CopyTuner code action provider.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "publisher": "aki77",
   "icon": "images/icon.png",
   "engines": {
@@ -27,7 +27,14 @@
     "onLanguage:slim"
   ],
   "main": "./out/extension.js",
-  "contributes": {},
+  "contributes": {
+    "commands": [
+      {
+        "command": "copyTuner.download",
+        "title": "Download copy_tuner.yml"
+      }
+    ]
+  },
   "scripts": {
     "vscode:prepublish": "yarn run compile",
     "compile": "tsc -p ./",
