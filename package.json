@@ -2,7 +2,7 @@
   "name": "copy-tuner",
   "displayName": "CopyTuner",
   "description": "CopyTuner code action provider.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "publisher": "aki77",
   "icon": "images/icon.png",
   "engines": {
@@ -39,6 +39,7 @@
     "vscode:prepublish": "yarn run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
+    "package": "vsce package",
     "pretest": "yarn run compile",
     "test": "node ./out/test/runTest.js"
   },
