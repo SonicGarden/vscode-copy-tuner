@@ -31,7 +31,13 @@
     "commands": [
       {
         "command": "copyTuner.download",
+        "category": "CopyTuner",
         "title": "Download copy_tuner.yml"
+      },
+      {
+        "command": "copyTuner.goto",
+        "category": "CopyTuner",
+        "title": "Go to CopyTuner Site"
       }
     ]
   },

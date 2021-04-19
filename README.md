@@ -14,6 +14,7 @@ CopyTuner code action provider.
 ## Commands
 
 - `copyTuner.download`: 最新の翻訳データをtmpディレクトリにダウンロードします。
+- `copyTuner.goto`: 一覧から選択した翻訳のCopyTuner編集画面を開きます。
 
 ## Requirements
 
