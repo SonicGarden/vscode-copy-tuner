@@ -1,5 +1,10 @@
 # Change Log
 
+## 0.3.1
+
+- Fix bug
+- yarn upgrade
+
 ## 0.3.0
 
 - Add `copyTuner.goto` command
