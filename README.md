@@ -18,6 +18,8 @@ CopyTuner code action provider.
 
 ## Requirements
 
+- `copy_tuner_client` gem
+  - `0.6.2`以上が必要です
 - [Rails I18n \- Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=aki77.rails-i18n)
   - 自動的にインストールされます
 

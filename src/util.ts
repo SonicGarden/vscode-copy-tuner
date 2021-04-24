@@ -49,7 +49,7 @@ export const download = async (silent = false) => {
   }
   const { exitCode, stderr } = await execa(
     'bundle',
-    ['exec', 'rake', 'copy_tuner:export'],
+    ['exec', 'rake', 'copy_tuner:export[tmp/copy_tuner.yml]'],
     {
       cwd: workspaceFolder.uri.path,
     }
@@ -58,14 +58,14 @@ export const download = async (silent = false) => {
     window.showErrorMessage(stderr)
     return
   }
-  const files = await workspace.findFiles('config/locales/copy_tuner.yml')
+  const files = await workspace.findFiles('tmp/copy_tuner.yml')
   if (files.length === 0) {
     return
   }
   const workspaceEdit = new WorkspaceEdit()
   const oldPath = files[0].path
   const newPath = oldPath.replace(
-    'config/locales/copy_tuner.yml',
+    'tmp/copy_tuner.yml',
     'tmp/locales/copy_tuner.yml'
   )
   workspaceEdit.renameFile(Uri.file(oldPath), Uri.file(newPath), {
