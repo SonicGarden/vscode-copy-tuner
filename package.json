@@ -2,7 +2,7 @@
   "name": "copy-tuner",
   "displayName": "CopyTuner",
   "description": "CopyTuner code action provider.",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "publisher": "aki77",
   "icon": "images/icon.png",
   "engines": {
