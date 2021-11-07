@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.3.2
+
+- yarn upgrade
+
 ## 0.3.1
 
 - Fix bug
