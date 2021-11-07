@@ -1,11 +1,11 @@
-import * as vscode from 'vscode'
-import { CopyTunerProvider } from './CopyTunerProvider'
-import { getApiKey, download, goto } from './util'
+import * as vscode from 'vscode';
+import { CopyTunerProvider } from './CopyTunerProvider';
+import { getApiKey, download, goto } from './util';
 
 export async function activate(context: vscode.ExtensionContext) {
-  const apiKey = await getApiKey()
+  const apiKey = await getApiKey();
   if (!apiKey) {
-    return
+    return;
   }
 
   context.subscriptions.push(
@@ -16,25 +16,25 @@ export async function activate(context: vscode.ExtensionContext) {
         providedCodeActionKinds: [vscode.CodeActionKind.QuickFix],
       }
     )
-  )
+  );
 
   context.subscriptions.push(
     vscode.commands.registerCommand('copyTuner.download', download)
-  )
+  );
 
   context.subscriptions.push(
     vscode.commands.registerCommand('copyTuner.goto', () => {
-      goto(apiKey)
+      goto(apiKey);
     })
-  )
+  );
 
   setImmediate(() => {
     const progressOptions = {
       location: vscode.ProgressLocation.Window,
       title: 'Downloading copy_tuner.yml',
-    }
-    vscode.window.withProgress(progressOptions, () => download(true))
-  })
+    };
+    vscode.window.withProgress(progressOptions, () => download(true));
+  });
 }
 
 export function deactivate() {}
