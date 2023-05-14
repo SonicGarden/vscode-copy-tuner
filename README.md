@@ -8,7 +8,7 @@ CopyTuner code action provider.
 
 ## Installation
 
-1. `.vsix`ファイルをダウンロード
+1. [releases](https://github.com/SonicGarden/vscode-copy-tuner/releases)から`.vsix`ファイルをダウンロード
 2. `code --install-extension copy-tuner-x.x.x.vsix`
 
 ## Commands
