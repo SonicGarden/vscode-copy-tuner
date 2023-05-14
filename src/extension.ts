@@ -5,6 +5,7 @@ import { getApiKey, download, goto } from './util';
 export async function activate(context: vscode.ExtensionContext) {
   const apiKey = await getApiKey();
   if (!apiKey) {
+    vscode.window.showErrorMessage('CopyTuner api_key not found');
     return;
   }
 

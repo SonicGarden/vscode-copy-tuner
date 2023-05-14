@@ -2,7 +2,7 @@
   "name": "copy-tuner",
   "displayName": "CopyTuner",
   "description": "CopyTuner code action provider.",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "publisher": "aki77",
   "icon": "images/icon.png",
   "engines": {
@@ -21,10 +21,7 @@
   },
   "private": true,
   "activationEvents": [
-    "onLanguage:ruby",
-    "onLanguage:haml",
-    "onLanguage:erb",
-    "onLanguage:slim"
+    "workspaceContains:config/initializers/copy_tuner.rb"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -62,9 +59,7 @@
   "extensionDependencies": [
     "aki77.rails-i18n"
   ],
-  "dependencies": {
-    "execa": "^7.1.1"
-  },
+  "dependencies": {},
   "volta": {
     "node": "16.20.0",
     "yarn": "1.22.19"

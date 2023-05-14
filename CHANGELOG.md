@@ -1,5 +1,10 @@
 # Change Log
 
+# 0.4.0
+
+- Update dependencies
+- Refactor
+
 ## 0.3.2
 
 - yarn upgrade

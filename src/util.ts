@@ -8,7 +8,10 @@ import {
   Range,
   commands,
 } from 'vscode';
-import execa = require('execa');
+import * as childProcess from 'child_process';
+import {promisify} from 'util';
+
+const exec = promisify(childProcess.exec);
 
 export type Translation = {
   locale: string
@@ -32,14 +35,13 @@ export const getApiKey = async () => {
   if (!workspaceFolder) {
     return null;
   }
-  const { stdout } = await execa(
-    'bundle',
-    ['exec', 'rails', 'runner', 'puts CopyTunerClient.configuration.api_key'],
+  const { stdout } = await exec(
+    "bundle exec rails runner 'puts CopyTunerClient.configuration.api_key'",
     {
       cwd: workspaceFolder.uri.path,
     }
   );
-  return stdout.match(/^[a-f0-9]{48}$/) ? stdout : null;
+  return stdout.trim().match(/^[a-f0-9]{48}$/) ? stdout : null;
 };
 
 export const download = async (silent = false) => {
@@ -47,17 +49,21 @@ export const download = async (silent = false) => {
   if (!workspaceFolder) {
     return;
   }
-  const { exitCode, stderr } = await execa(
-    'bundle',
-    ['exec', 'rake', 'copy_tuner:export[tmp/copy_tuner.yml]'],
-    {
-      cwd: workspaceFolder.uri.path,
+
+  try {
+    await exec(
+      'bundle exec rake copy_tuner:export[tmp/copy_tuner.yml]',
+      {
+        cwd: workspaceFolder.uri.path,
+      }
+    );
+  } catch (error) {
+    if (error instanceof Error) {
+      window.showErrorMessage(error.message);
     }
-  );
-  if (exitCode > 0) {
-    window.showErrorMessage(stderr);
     return;
   }
+
   const files = await workspace.findFiles('tmp/copy_tuner.yml');
   if (files.length === 0) {
     return;
